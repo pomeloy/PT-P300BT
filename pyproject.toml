@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pt-p300bt"
+dynamic = ["version"]
+description = "Print text, emoji, images and PDFs on a Brother P-touch Cube PT-P300BT label printer (CLI and Tk GUI)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Ircama" }]
+keywords = ["brother", "p-touch", "pt-p300bt", "label printer", "bluetooth"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Environment :: Console",
+    "Environment :: MacOS X",
+    "Environment :: Win32 (MS Windows)",
+    "Environment :: X11 Applications",
+    "Topic :: Printing",
+]
+dependencies = [
+    "fonttools>=4.65.0",
+    "packbits>=0.6",
+    "pdf2image>=1.17.0",
+    "pillow>=12.3.0",
+    "pyobjc-framework-iobluetooth>=12.2.2 ; sys_platform == 'darwin'",
+    "pyserial>=3.5",
+    "uharfbuzz>=0.56.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/Ircama/PT-P300BT"
+Issues = "https://github.com/Ircama/PT-P300BT/issues"
+
+[project.scripts]
+printlabel = "printlabel:_run_gui"
+
+[dependency-groups]
+dev = ["pyinstaller"]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.wheel]
+only-include = [
+    "printlabel.py", "ptgui.py", "fontbrowser.py", "labelmaker.py",
+    "labelmaker_encode.py", "ptcbp.py", "ptstatus.py", "native",
+]
+exclude = ["native/README.md"]
